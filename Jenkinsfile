@@ -21,7 +21,7 @@ jdk 'Nikhitha_jdk'
       }
    stage('deployment'){
     steps{
-     bat 'mvn spring-boot:run'
+     bat 'mvn mvnwspring-boot:run'
     }
    }
    }
