@@ -13,17 +13,12 @@ jdk 'Nikhitha_jdk'
   bat 'mvn clean'
   }
   }
-    stage('Compile'){
+    stage('Compilation'){
        steps{
-          bat 'mvn compile'
+          sh "./mvnw clean install -DskipTests"
           
       }
       }
-      stage('Package Archieve')
-      {
-      steps{
-      bat 'mvn package'
-        }
-     }
+      
    }
   }
