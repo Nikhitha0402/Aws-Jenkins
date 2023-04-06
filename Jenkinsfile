@@ -1,21 +1,21 @@
 pipeline{
- agent any{
+ agent any
   stages{
-  stage('Checkout'){
+  stage('Clean'){
   steps{
-  git branch:"main",url:'https://github.com/Nikhitha0402/Aws-Jenkins.git'
-  echo 'Hello Checkout'
+  bat 'mvn clean'
   }
   }
-    stage('Build'){
+    stage('Compile'){
        steps{
-          sh 'a+x mvnw'
-          sh './mvnw clean package -DskipTests=true'
+          bat 'mvn compile'
+          
       }
-      post{
-      always{
-        archieveArtifact 'target/*.jar'
-           }
+      }
+      stage('Package Archieve')
+      {
+      steps{
+      bat 'mvn package'
         }
      }
    }
