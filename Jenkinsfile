@@ -1,5 +1,9 @@
 pipeline{
  agent any
+tools{
+maven 'Maven'
+jdk 'Nikhitha_jdk'
+}
   stages{
   stage('Clean'){
   steps{
