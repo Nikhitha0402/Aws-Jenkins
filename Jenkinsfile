@@ -15,10 +15,14 @@ jdk 'Nikhitha_jdk'
   }
     stage('Compilation'){
        steps{
-          sh "./mvnw clean install -DskipTests"
+          bat 'mvn compile'
           
       }
       }
-      
+   stage('deployment'){
+    steps{
+     bat 'mvn spring-boot:run'
+    }
+   }
    }
   }
