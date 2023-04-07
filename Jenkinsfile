@@ -13,15 +13,15 @@ jdk 'Nikhitha_jdk'
   bat 'mvn clean'
   }
   }
-    stage('Compilation'){
+    stage('Compilation & Package'){
        steps{
-          bat 'mvn compile'
+          bat 'mvn compile package'
           
       }
       }
    stage('deployment'){
     steps{
-     bat 'mvn spring-boot:run'
+     bat 'java -jar target/Student-Demo.jar'
     }
    }
    }
