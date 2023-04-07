@@ -13,16 +13,28 @@ jdk 'Nikhitha_jdk'
   bat 'mvn clean'
   }
   }
-    stage('Compilation & Package'){
+    stage('Compilation'){
        steps{
-          bat 'mvn compile package'
+          bat 'mvn compile'
           
       }
       }
-   stage('deployment'){
-    steps{
-     bat 'java -jar target/Student-Demo.jar'
+   stage('Build') {
+            steps {
+                sh 'make' 
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true 
+            }
+        }
+  
+     stage('Deploy') {
+            when {
+              expression {
+                currentBuild.result == null || currentBuild.result == 'SUCCESS' 
+              }
+            }
+            steps {
+                bat 'make publish'
+            }
+        }
     }
-   }
-   }
   }
