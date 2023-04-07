@@ -1,28 +1,36 @@
 pipeline{
- agent any
- environment {
+	agent any
+	environment {
        PATH = "C:\\WINDOWS\\SYSTEM32"
     }
-tools{
-maven 'Maven'
-jdk 'Nikhitha_jdk'
+	stages{
+		stage('Checkout'){
+			steps{
+				git branch: "main", url: 'https://github.com/Nikhitha0402/Aws-Jenkins.git'
+			
+			}
+			
+		}
+		
+		stage('Build'){
+			steps{
+				bat 'chmod a+x mvnw'
+				bat './mvnw clean package -DskipTests=true' 
+			}
+			
+			post{
+				always{
+					archiveArtifacts 'target/*.jar'
+				}
+			}
+		}
+		
+		stage(DockerBuild){
+			steps{
+				bat 'docker build -t Nikhitha0402/Aws-Jenkins:latest .'
+			}
+		}
+		
+	}
+
 }
-  stages{
-  stage('Clean'){
-  steps{
-  bat 'mvn clean'
-  }
-  }
-    stage('Compilation'){
-       steps{
-          bat 'mvn compile'
-          
-      }
-      }
-   stage('deployment'){
-    steps{
-     bat 'mvn mvnwspring-boot:run'
-    }
-   }
-   }
-  }
